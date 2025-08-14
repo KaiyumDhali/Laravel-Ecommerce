@@ -14,13 +14,21 @@
         </div>
     @endif
 
-    <form action="{{ route('company-info.update') }}" method="POST">
+   <form action="{{ route('company-info.update') }}" method="POST" enctype="multipart/form-data">
+
         @csrf
 
         <div class="mb-4">
             <label for="company_name" class="form-label">Company Name</label>
             <input type="text" name="company_name" id="company_name" class="form-control" value="{{ old('company_name', $companyInfo->company_name) }}" required>
             @error('company_name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-4">
+            <label for="company_address" class="form-label"> Company Address</label>
+            <input type="text" name="company_address" id="company_address" class="form-control" value="{{ old('company_address', $companyInfo->company_address) }}" required>
+            @error('company_address')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -48,6 +56,19 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+<div class="mb-4">
+    <label for="company_logo" class="form-label">Company Logo</label>
+    <input type="file" name="company_logo" id="company_logo" class="form-control" >
+    @error('company_logo')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+
+    @if(!empty($companyInfo->company_logo))
+        <div class="mt-2">
+            <img src="{{ asset($companyInfo->company_logo) }}" alt="Company Logo" style="max-height:100px; border-radius:8px;">
+        </div>
+    @endif
+</div>
 
         <button type="submit" class="btn btn-primary w-100">Update Information</button>
     </form>

@@ -85,16 +85,16 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{route('index.view')}}"><b>NRB</b>E-commerce</a>
+                        <a href="{{route('index.view')}}"> <img src="{{ asset($company_info->company_logo) }}" alt="Company Logo" style="max-height:50px; "></a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="{{route('index.view')}}">Home</a></li>
                             <li><a href="{{route('about')}}">About Us</a></li>
                             <li><a href="#">Page</a></li>
-                            <li><a href="#">Shop</a></li>
-                            <li><a href="#">Blog</a></li>
+                            <li><a href="{{route('shop')}}">Shop</a></li>
+                            <li><a href="{{route('blog')}}">Blog</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right cart-menu">
@@ -131,20 +131,20 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="title-section wow fadeInDown animated">
-                            <h1>GET IN TOUCH</h1>
+                            <h1 style="color:white;">GET IN TOUCH</h1>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInLeft animated">
                         <div class="left-content">
-                            <h1><span>M</span>art</h1>
+                             <a href="{{route('index.view')}}"> <img src="{{ asset($company_info->company_logo) }}" alt="Company Logo" style="max-height:50px; "></a>
                             <h3>We'd love to meet you in person or via the web!</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel nulla sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
                             <div class="contact-info">
-                                <p><b>Main Office:</b> 123 Elm St. New York City, NY</p>
-                                <p><b>Phone:</b> 1.555.555.5555</p>
-                                <p><b>Email:</b> info@yourdomain.com</p>
+                                <p><b>Main Office:</b> {{$company_info->company_address}}</p>
+                                <p><b>Phone:</b> {{$company_info->mobile}}</p>
+                                <p><b>Email:</b> {{$company_info->email}}</p>
                             </div>
                             <div class="social-media">
                                 <ul>
@@ -204,7 +204,7 @@
         </section>
 
         <!-- FOOTER -->
-        <footer class="footer">
+        <footer class="footer ">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">

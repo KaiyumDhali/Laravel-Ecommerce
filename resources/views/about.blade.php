@@ -7,24 +7,24 @@
 <section class="about-container">
     <section class="company-header text-center py-5">
         <h1>About Our Company</h1>
-        <p>Welcome to <strong>{{ $companyInfo->company_name }}</strong>. Learn more about our mission, vision, and values.</p>
+        <p>Welcome to <strong>{{ $company_info->company_name }}</strong>. Learn more about our mission, vision, and values.</p>
     </section>
 
     <section class="company-info container">
         <div class="row">
             <div class="col-md-4 info-block mb-4">
                 <h2>Our Mission</h2>
-                <p>{{ $companyInfo->mission }}</p>
+                <p>{{ $company_info->mission }}</p>
             </div>
 
             <div class="col-md-4 info-block mb-4">
                 <h2>Our Vision</h2>
-                <p>{{ $companyInfo->vision }}</p>
+                <p>{{ $company_info->vision }}</p>
             </div>
 
             <div class="col-md-4 info-block mb-4">
                 <h2>Our Values</h2>
-                <p>{{ $companyInfo->values }}</p>
+                <p>{{ $company_info->values }}</p>
             </div>
         </div>
     </section>

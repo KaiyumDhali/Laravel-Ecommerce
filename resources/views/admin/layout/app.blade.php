@@ -27,7 +27,7 @@
 
 <!-- Theme Config js (Require in all Page) -->
 <script src="{{ asset('assets2/js/config.js') }}"></script>
-
+   
 </head>
 
 <body>
@@ -306,9 +306,10 @@
                </div>
 
                <!-- Menu Toggle Button (sm-hover) -->
-               <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar">
+                    <button id="sidebarToggle" type="button" class="button-sm-hover" aria-label="Toggle Sidebar">
                     <iconify-icon icon="solar:double-alt-arrow-right-bold-duotone" class="button-sm-hover-icon"></iconify-icon>
-               </button>
+                    </button>
+
 
                <div class="scrollbar" data-simplebar>
                     <ul class="navbar-nav" id="navbar-nav">
@@ -497,25 +498,6 @@
                          </li>
 
 
-                         <li class="nav-item">
-                              <a class="nav-link menu-arrow" href="#sidebarInventory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInventory">
-                                   <span class="nav-icon">
-                                        <iconify-icon icon="solar:box-bold-duotone"></iconify-icon>
-                                   </span>
-                                   <span class="nav-text"> Inventory </span>
-                              </a>
-                              <div class="collapse" id="sidebarInventory">
-                                   <ul class="nav sub-navbar-nav">
-
-                                        <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="inventory-warehouse.html">Warehouse</a>
-                                        </li>
-                                        <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="inventory-received-orders.html">Received Orders</a>
-                                        </li>
-                                   </ul>
-                              </div>
-                         </li>
 
                          <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">
@@ -564,7 +546,64 @@
                                    </ul>
                               </div>
                          </li>
+                         <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#newsPurchases" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="newsPurchases">
+                                   <span class="nav-icon">
+                                       <iconify-icon icon="mdi:newspaper-variant-outline"></iconify-icon>
 
+                                   </span>
+                                   <span class="nav-text"> News </span>
+                              </a>
+                              <div class="collapse" id="newsPurchases">
+                                   <ul class="nav sub-navbar-nav">
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="{{route('admin.news.index')}}">News Management</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <!-- <a class="sub-nav-link" href="purchase-returns.html">Return</a> -->
+                                        </li>
+                                   </ul>
+                              </div>
+                         </li>
+                         <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#partnerPurchases" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="partnerPurchases">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="mdi:account-group"></iconify-icon>
+                                   </span>
+                                   <span class="nav-text"> Partners </span>
+                              </a>
+                              <div class="collapse" id="partnerPurchases">
+                                   <ul class="nav sub-navbar-nav">
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="{{ route('admin.partners.index') }}">Partner Management</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <!-- <a class="sub-nav-link" href="purchase-returns.html">Return</a> -->
+                                        </li>
+                                   </ul>
+                              </div>
+                         </li>
+
+                         <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#sidebarInventory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInventory">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:box-bold-duotone"></iconify-icon>
+                                   </span>
+                                   <span class="nav-text"> Inventory </span>
+                              </a>
+                              <div class="collapse" id="sidebarInventory">
+                                   <ul class="nav sub-navbar-nav">
+
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="inventory-warehouse.html">Warehouse</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="inventory-received-orders.html">Received Orders</a>
+                                        </li>
+                                   </ul>
+                              </div>
+                         </li>
+                         
                          <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarAttributes" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAttributes">
                                    <span class="nav-icon">

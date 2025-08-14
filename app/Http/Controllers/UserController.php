@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 use Session;
 use App\Models\Product;
+use App\Models\News;
 use App\Models\UserModel;
+use App\Models\Category;
 use App\Models\Slider;
+use App\Models\Partner;
+use App\Models\CompanyInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -15,18 +19,23 @@ class UserController extends Controller
 {
 
 
-    public function index1()
-    {
-
-        $products = Product::all();
-        $sliders = Slider::all();
-        $featuredProducts = Product::where('is_featured', 1)->get();
-        $bestSellers = Product::where('sales_count', '>=', 2)
+   public function index1()
+{
+    $partners = Partner::all();
+    $company_info = CompanyInfo::first();
+    $news = News::latest()->take(6)->get();
+    $products = Product::all();
+    $sliders = Slider::all();
+    $featuredProducts = Product::where('is_featured', 1)->get();
+    $bestSellers = Product::where('sales_count', '>=', 2)
         ->orderBy('sales_count', 'desc')
         ->take(2)
         ->get();
-        return view('index',compact('products','sliders','featuredProducts','bestSellers'));
-    }
+
+    $categories = Category::withCount('products')->get(); // Assuming relation products() in Category
+
+    return view('index', compact('products','sliders','featuredProducts','bestSellers','news','categories','company_info','partners'));
+}
 
     public function index()
     {
@@ -218,6 +227,18 @@ public function userupdate(Request $request)
     } else {
         return response()->json(['success' => false, 'message' => 'User not found.']);
     }
+}
+
+public function frontview(){
+     $products = Product::all();
+    $categories = Category::withCount('products')->get(); 
+     $company_info = CompanyInfo::first();
+    return view('shop', compact('categories','company_info','products'));
+}
+public function blogfrontview(){
+     $news = News::all();
+     $company_info = CompanyInfo::first();
+    return view('blog', compact('news','company_info'));
 }
 
 }

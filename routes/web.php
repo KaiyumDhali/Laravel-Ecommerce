@@ -10,7 +10,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AboutControllerAdmin;
 use App\Http\Controllers\PurchaseController;
-
+use App\Http\Controllers\Admin\NewsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +37,10 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 // Route::get('about', [AboutControllerAdmin::class, 'indexview'])->name('front');
 Route::get('/about',[AboutControllerAdmin::class,'frontview'])->name('about');
 
+//Shop
+Route::get('/shop',[UserController::class,'frontview'])->name('shop');
+//blog
+Route::get('/blog',[UserController::class,'blogfrontview'])->name('blog');
 // web.php
 // Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
 // // Route::put('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update');
@@ -73,10 +77,12 @@ Route::middleware(['user'])->group(function () {
 
 
     //test
-
-   
-Route::get('/checkout/print/{id}',  [CheckoutController::class,'printOrder'])->name('checkout.print');
+    Route::get('/checkout/print/{id}',  [CheckoutController::class,'printOrder'])->name('checkout.print');
     
+
+    //News Section
+
+    Route::get('/news/{id}', [NewsController::class, 'detai_show'])->name('news.show');
 });
 
 // Admin dashboard - Protected by auth middleware
@@ -152,6 +158,15 @@ Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchase.s
 Route::get('/purchase-products', [PurchaseController::class, 'listview'])->name('purchase-products.index');
 
 
+});
+
+// routes/web.php
+Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function () {
+    Route::resource('news', App\Http\Controllers\Admin\NewsController::class);
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('partners', App\Http\Controllers\Admin\PartnerController::class);
 });
 
 

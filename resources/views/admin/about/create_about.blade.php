@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <form action="" method="POST" class="space-y-5 relative z-10">
+            <form action="" method="POST" class="space-y-5 relative z-10"enctype="multipart/form-data">
                 @csrf
                 @method('POST')
 
@@ -28,6 +28,12 @@
                     <input type="text" name="company_name" id="company_name"
                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
                            value="{{ old('company_name', $companyInfo->company_name) }}" required>
+                </div>
+                <div>
+                    <label for="company_address" class="block text-gray-700 font-semibold mb-1">Company Address</label>
+                    <input type="text" name="company_address" id="company_address"
+                           class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
+                           value="{{ old('company_address', $companyInfo->company_address) }}" required>
                 </div>
 
                 <div>
@@ -63,6 +69,19 @@
                     <input type="text" name="values" id="values"
                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400"
                            value="{{ old('values', $companyInfo->values) }}" required>
+                </div>
+                <div class="mb-4">
+                    <label for="company_logo" class="form-label">Company Logo</label>
+                    <input type="file" name="company_logo" id="company_logo" class="form-control" >
+                    @error('company_logo')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+
+                    @if(!empty($companyInfo->company_logo))
+                        <div class="mt-2">
+                            <img src="{{ asset($companyInfo->company_logo) }}" alt="Company Logo" style="max-height: 100px; border-radius: 8px;">
+                        </div>
+                    @endif
                 </div>
 
                 <div class="flex justify-end">

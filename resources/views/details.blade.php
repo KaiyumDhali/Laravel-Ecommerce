@@ -25,7 +25,7 @@
                 </div>
                 @endif
             </div>
-<div class="col-lg-1"></div>
+            <div class="col-lg-1"></div>
             <!-- Product Information Section -->
             <div class="col-lg-5">
                 <h1 class="mb-3" style="font-size: 28px; font-weight: 700; color: #333;">{{ $product->name }}</h1>
