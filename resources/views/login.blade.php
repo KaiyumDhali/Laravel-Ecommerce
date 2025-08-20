@@ -1,138 +1,133 @@
-
 @extends('layout.app')
-@section('title' ,'loin')
+@section('title' ,'Login')
 
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap 5.3 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+      rel="stylesheet" 
+      integrity="sha384-GN5oMI43y8KZ8Iq8ETxGdF/7Q9PTh9odlPSRxeb9YEXcLjUJnSoFbRpAZfoUQl5g" 
+      crossorigin="anonymous">
+
 <style>
     body {
+        background: linear-gradient(to right, #e0f7fa, #f5f7fa);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(to bottom, #f5f7fa, #e2e4e9);
-        color: #444;
     }
-    .form-container {
-        max-width: 750px;
-        margin: 3rem auto;
-        padding: 2rem;
-        background-color: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    .login-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login-card {
+        width: 420px; /* fixed width */
+        background: #fff;
+        border-radius: 15px;
+        padding: 40px 30px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.2);
         position: relative;
-        overflow: hidden;
     }
-    .form-title {
-        font-size: 2rem;
+    .login-title {
+        font-size: 28px;
         font-weight: 700;
-        margin-bottom: 1.5rem;
-        text-align: center;
         color: #37474f;
-        position: relative;
-        z-index: 1;
+        text-align: center;
+        margin-bottom: 25px;
     }
-    .form-container::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(55, 71, 79, 0.7), rgba(0, 128, 128, 0.3));
-        z-index: 0;
-        opacity: 0.1;
-    }
-    .form-container h1, .form-container label, .alert {
-        position: relative;
-        z-index: 1;
-    }
-    .form-container label {
+    .form-label {
         font-weight: 600;
         color: #37474f;
+        margin-bottom: 8px;
     }
     .form-control {
-        border: none;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 1rem;
-        font-size: 1.5rem; /* Reduced for better responsiveness */
-        background-color: #f9f9f9;
-        color: #37474f;
-        height:55px;
+        height: 50px;
+        font-size: 16px;
+        border-radius: 8px;
+        padding: 10px 15px;
     }
     .form-control:focus {
-        border-color: #00bcd4;
-        box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+        border-color: #009688;
+        box-shadow: 0 0 8px rgba(0,150,136,0.4);
     }
-    .btn-primary {
+    .btn-login {
         background: linear-gradient(to right, #00bcd4, #009688);
         border: none;
+        border-radius: 8px;
+        height: 50px;
+        font-size: 18px;
         font-weight: 600;
-        font-size: 1.7rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        transition: background 0.3s ease;
-        height:50px;
+        color: #fff;
+        transition: 0.3s;
+        margin-top: 15px;
     }
-    .btn-primary:hover {
-        background: linear-gradient(to right, #009688, #00796b);
-        color: #ffffff;
+    .btn-login:hover {
+        background: linear-gradient(to right, #009688, #00695c);
     }
-    .alert {
-        background-color: #e0f7fa;
-        color: #00796b;
-        font-weight: 500;
-        border-radius: 8px;
-        margin-top: 1rem;
-        padding: 0.75rem 1rem;
+    .signup-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 15px;
     }
-    /* Media Queries for responsiveness */
-    @media (max-width: 768px) {
-        .form-title {
-            font-size: 1.5rem; /* Adjust title size for smaller screens */
-        }
-        .form-control {
-            font-size: 0.9rem; /* Adjust input font size */
-        }
-        .btn-primary {
-            font-size: 1rem; /* Adjust button font size */
-        }
+    .signup-link a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #009688;
+    }
+    .signup-link a:hover {
+        text-decoration: underline;
     }
 </style>
 
-<main>
-    <section>
-        <div class="container">
-            <div class="form-container">
-                <h1 class="form-title">Login Form</h1>
-                <form method="POST" action="{{ route('log.send') }}">
-                    @csrf
+<main class="login-wrapper">
+    <div class="login-card">
+        <h2 class="login-title">Login</h2>
 
-                    <!-- Email Field -->
-                    <div class="mb-4">
-                        <label for="email" class="col-md-3 lebel">Email</label>
-                        <input class="form-control" type="text" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
-                        @error('email')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
+        <form method="POST" action="{{ route('log.send') }}">
+            @csrf
 
-                    <!-- Password Field -->
-                    <div class="mb-4">
-                        <label for="password" class="col-md-3 lebel">Password</label>
-                        <input class="form-control" type="password" id="password" name="password" placeholder="Password">
-                        @error('password')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary w-100">Save</button>
-
-                    <!-- Signup Link -->
-                    <a href="{{ route('user.registration') }}" class="d-block text-center mt-3" style="font-size: 1.5rem;">Signup</a>
-                </form>
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" 
+                       class="form-control @error('email') is-invalid @enderror" 
+                       id="email" 
+                       name="email" 
+                       placeholder="Enter your email" 
+                       value="{{ old('email') }}">
+                @error('email')
+                    <div class="text-danger mt-1 small">{{ $message }}</div>
+                @enderror
             </div>
-        </div>
-    </section>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" 
+                       class="form-control @error('password') is-invalid @enderror" 
+                       id="password" 
+                       name="password" 
+                       placeholder="Enter your password">
+                @error('password')
+                    <div class="text-danger mt-1 small">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-login w-100">Login</button>
+
+            <!-- Signup -->
+            <div class="signup-link">
+                Don’t have an account? 
+                <a href="{{ route('user.registration') }}">Signup</a>
+            </div>
+        </form>
+    </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ppYN7FXGe3tGgfQ/HVbUaz2YsmiVjCwXTlzAIXazhbugzuDUFc1l1b/HY70dNFu7" 
+        crossorigin="anonymous"></script>
+
 @endsection

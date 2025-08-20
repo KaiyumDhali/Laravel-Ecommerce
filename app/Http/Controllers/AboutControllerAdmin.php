@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CompanyInfo;
+use App\Models\Category;
 
 class AboutControllerAdmin extends Controller
 {
     public function index()
     {
         $companyInfo = CompanyInfo::first();
-       
-        return view('admin.about', compact('companyInfo'));
+        $categories = Category::withCount('products')->get();
+        return view('admin.about', compact('companyInfo','categories'));
     }
 
     // public function update(Request $request)
@@ -23,7 +24,8 @@ class AboutControllerAdmin extends Controller
 
     public function frontview(){
         $company_info = CompanyInfo::first();
-        return view('about',compact('company_info'));
+        $categories = Category::withCount('products')->get();
+        return view('about',compact('company_info','categories'));
     }
 
 
@@ -86,6 +88,13 @@ class AboutControllerAdmin extends Controller
     $companyInfo->save();
 
     return redirect()->route('company-info.edit')->with('success', 'Company information updated successfully.');
+}
+
+
+public function contactview(){
+    $company_info = CompanyInfo::first();
+    $categories = Category::withCount('products')->get();
+return view('contact',compact('company_info','categories'));
 }
 
 }

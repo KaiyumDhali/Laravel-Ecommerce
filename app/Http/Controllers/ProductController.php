@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\Unit;
+use App\Models\CompanyInfo;
 
 
 class ProductController extends Controller
@@ -30,8 +31,9 @@ class ProductController extends Controller
 
     public function showDetails($id)
 {
-    // Fetch the product with its relationships
- $product = Product::with(['sizes', 'colors'])->findOrFail($id);
+     $categories = Category::withCount('products')->get();
+    $company_info = CompanyInfo::first();
+    $product = Product::with(['sizes', 'colors'])->findOrFail($id);
 //dd( $product);
     // Fetch related products in the same category (excluding the current product)
     $relatedProducts = Product::with('category')
@@ -41,7 +43,7 @@ class ProductController extends Controller
         ->get();
 
     // Return the view with the product and related products
-    return view('details', compact('product', 'relatedProducts'));
+    return view('details', compact('product', 'relatedProducts','company_info','categories'));
 }
 
 

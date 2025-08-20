@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\CompanyInfo;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -72,6 +74,8 @@ class NewsController extends Controller
 
     public function detai_show($id){
         $news = News::findOrFail($id);
-        return view('newsdetails', compact('news'));
+        $company_info = CompanyInfo::first();
+        $categories = Category::withCount('products')->get();
+        return view('newsdetails', compact('news','company_info','categories'));
     }
 }

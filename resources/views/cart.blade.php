@@ -3,7 +3,7 @@
 
 @section('content')
 
-<section class="cart-section py-5">
+<section class="cart-section py-5" style="margin-bottom:50px;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 table-responsive">

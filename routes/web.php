@@ -36,9 +36,11 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 //about
 // Route::get('about', [AboutControllerAdmin::class, 'indexview'])->name('front');
 Route::get('/about',[AboutControllerAdmin::class,'frontview'])->name('about');
-
+//contact
+Route::get('/contact...',[AboutControllerAdmin::class,'contactview'])->name('contatc.');
 //Shop
-Route::get('/shop',[UserController::class,'frontview'])->name('shop');
+Route::get('/..%kflh', [UserController::class,'frontview'])->name('shop');
+
 //blog
 Route::get('/blog',[UserController::class,'blogfrontview'])->name('blog');
 // web.php

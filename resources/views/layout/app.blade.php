@@ -13,8 +13,6 @@
         <link rel="icon" href="{{ asset('images/favicon.png') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GN5oMI43y8KZ8Iq8ETxGdF/7Q9PTh9odlPSRxeb9YEXcLjUJnSoFbRpAZfoUQl5g" crossorigin="anonymous">
-        
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
@@ -92,28 +90,43 @@
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="{{route('index.view')}}">Home</a></li>
                             <li><a href="{{route('about')}}">About Us</a></li>
-                            <li><a href="#">Page</a></li>
+                                  <!-- Shop Dropdown -->
+                           <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        Category <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        @foreach($categories as $category)
+            <li>
+                <a href="{{ route('shop') }}?category={{ $category->id }}">
+                    {{ $category->name }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
+</li>
+
                             <li><a href="{{route('shop')}}">Shop</a></li>
                             <li><a href="{{route('blog')}}">Blog</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="{{route('contatc.')}}">Contact Us</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right cart-menu">
-    <li><a href="#" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-    <li>
+                            <li><a href="#" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                            <li>
    
-        <a href="{{route('cart.view')}}">
-            <span>Cart:</span>
-        
-            <span class="cart-info ">
-<strong id="cart-total">৳{{ number_format($cartTotal, 2) }}</strong>
-                &nbsp;|&nbsp;
-                <i class="fa fa-shopping-cart"></i> 
-                <span id="cart-count">{{ count(session('cart', [])) }}</span>
-            </span>
+                                <a href="{{route('cart.view')}}">
+                                    <span>Cart:</span>
+                                
+                                    <span class="cart-info ">
+                        <strong id="cart-total">৳{{ number_format($cartTotal, 2) }}</strong>
+                                        &nbsp;|&nbsp;
+                                        <i class="fa fa-shopping-cart"></i> 
+                                        <span id="cart-count">{{ count(session('cart', [])) }}</span>
+                                    </span>
 
-        </a>
-    </li>
-</ul>
+                                </a>
+                            </li>
+                        </ul>
 
                     </div>
                 </div>
@@ -215,7 +228,7 @@
         </footer>
 
         <!-- JQUERY -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7Uw2EC9CJDs5vyp6EzgEmn6iVw97x3c7h79tfswKYw/rlTL" crossorigin="anonymous"></script>
+       
         <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/vendor/jquery-1.11.2.min.js') }}"></script>
         <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
@@ -226,7 +239,5 @@
         <script src="{{ asset('js/style.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        
-    </body>
     </body>
 </html>

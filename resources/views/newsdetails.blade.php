@@ -3,9 +3,9 @@
 @section('title', $news->title)
 
 @section('content')
-<div class="container my-5">
+<div class="container my-5" >
     <div class="row justify-content-center">
-        <div class="col-lg-9 col-md-11">
+        <div class="col-lg-9 col-md-11" style="margin-bottom:50px;">
 
             <div class="card shadow border-0 rounded-3">
                 <div class="card-body p-4 p-md-5">
@@ -19,7 +19,7 @@
 
                     {{-- News Image --}}
                     @if($news->image)
-                        <div class="mb-4 text-center">
+                        <div class="mb-4 text-center" style="margin-bottom:40px;">
                             <img src="{{ asset('storage/' . $news->image) }}"
                                  class="img-fluid rounded shadow-sm"
                                  style="max-height: 450px; object-fit: cover;"
@@ -28,24 +28,25 @@
                     @endif
 
                     {{-- Description --}}
-                    <div class="news-content fs-5 lh-lg">
+                    <div class="news-content fs-5 lh-lg" style="margin-bottom:50px;">
                         {!! nl2br(e($news->description)) !!}
                     </div>
 
                     {{-- Back & Share --}}
                     <div class="mt-5 d-flex flex-wrap justify-content-between gap-2">
-                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
-                            <i class="bi bi-arrow-left"></i> Back to News
+                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary" style="margin-bottom:30px;">
+                           <i class=" fa fa-arrow-left"></i> Back to News
+
                         </a>
 
                         <div class="d-flex gap-2">
                             <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::fullUrl()) }}"
-                               target="_blank" class="btn btn-primary">
-                               <i class="bi bi-facebook"></i> Share
+                               target="_blank" class="btn btn-primary" style="margin-right:50px;">
+                              <i class="fa fa-facebook"></i> Share
                             </a>
                             <a href="https://twitter.com/intent/tweet?url={{ urlencode(Request::fullUrl()) }}"
                                target="_blank" class="btn btn-info text-white">
-                               <i class="bi bi-twitter"></i> Tweet
+                               <i class="fa fa-twitter"></i> Tweet
                             </a>
                         </div>
                     </div>

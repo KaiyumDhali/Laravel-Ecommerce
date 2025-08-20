@@ -16,8 +16,12 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h5 class="text-muted">Full Name</h5>
+                                    <h5 class="text-muted">First Name</h5>
                                     <input type="text" id="userName" class="form-control font-weight-bold" value="{{ session('user_name') }}" name="userName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="text-muted">Last Name</h5>
+                                    <input type="text" id="userLastName" class="form-control font-weight-bold" value="{{ session('user_lastname') }}" name="userLastName" required>
                                 </div>
                                 <div class="col-md-6">
                                     <h5 class="text-muted">Email</h5>

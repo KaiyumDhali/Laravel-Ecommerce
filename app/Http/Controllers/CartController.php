@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\CompanyInfo;
+use App\Models\Category;
 use Session;
 
 class CartController extends Controller
@@ -75,6 +77,8 @@ class CartController extends Controller
 
     public function viewCart()
     {
+        $categories = Category::withCount('products')->get();
+        $company_info = CompanyInfo::first();
         $cartItems = session()->get('cart', []);
         $cartTotal = array_sum(array_map(function($item) {
             return $item['price'] * $item['quantity'];
@@ -82,7 +86,7 @@ class CartController extends Controller
 
       
 
-        return view('cart', compact('cartItems', 'cartTotal'));
+        return view('cart', compact('cartItems', 'cartTotal','company_info','categories'));
     }
 
     public function updateCart(Request $request, $id)

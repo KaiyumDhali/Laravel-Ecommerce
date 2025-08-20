@@ -69,11 +69,12 @@ class UserController extends Controller
 
     public function showLoginForm()
     {
+        $company_info = CompanyInfo::first();
         $cartItems = session()->get('cart', []);
         $cartTotal = array_sum(array_map(function($item) {
             return $item['price'] * $item['quantity'];
         }, $cartItems));
-        return view('login',compact('cartTotal'));
+        return view('login',compact('cartTotal','company_info'));
     }
 
     public function login(Request $request)
@@ -137,34 +138,34 @@ public function Adminloginview()
         }
     }
 
-    public function accountview()
+public function accountview()
 {
+    $company_info = CompanyInfo::first();
+
     if (Session::has('user_id')) {
-        // Retrieve user information from the session
-        $userId = session('user_id');
-        $userName = session('user_name');
-        $userLastName = session('user_lastname');
-        $userAddress = session('address');
-        $userEmail = session('email');
-        $userPhone = session('phone');
+        // Retrieve all needed session values in one go
+        $userData = [
+            'userId'       => session('user_id'),
+            'userName'     => session('user_name'),
+            'userLastName' => session('user_lastname'),
+            'userAddress'  => session('address'),
+            'userEmail'    => session('email'),
+            'userPhone'    => session('phone'),
+            'company_info'  => $company_info,
+        ];
 
         // Pass the session data to the view
-        return view('accounts', [
-            'userId' => $userId,
-            'userName' => $userName,
-            'userLastName' => $userLastName,
-            'userAddress' => $userAddress,
-            'userEmail' => $userEmail,
-            'userPhone' => $userPhone
-        ]);
-    } else {
-        // If no user_id in session, redirect to login or show error message
-        return redirect()->route('login')->with('error', 'Please log in to view your account.');
+        return view('accounts', $userData);
     }
+
+    // If no user_id in session, redirect to login with error message
+    return redirect()->route('login')->with('error', 'Please log in to view your account.');
 }
+
 
 public function updateview()
 {
+    $company_info = CompanyInfo::first();
     if (Session::has('user_id')) {
         // Retrieve user information from the session
         $userId = session('user_id');
@@ -181,7 +182,8 @@ public function updateview()
             'userLastName' => $userLastName,
             'userAddress' => $userAddress,
             'userEmail' => $userEmail,
-            'userPhone' => $userPhone
+            'userPhone' => $userPhone,
+            'company_info'  => $company_info,
         ]);
     } else {
         // If no user_id in session, redirect to login or show error message
@@ -196,6 +198,7 @@ public function userupdate(Request $request)
     // Validate the request data
     $request->validate([
         'userName' => 'required|string|max:255',
+        'userLastName' => 'required|string|max:255',
         'userEmail' => 'required|email|unique:users,email,' . session('user_id'),
         'userPhone' => 'required|string|max:20',
         'userAddress' => 'required|string|max:255',
@@ -207,6 +210,7 @@ public function userupdate(Request $request)
     // If user exists, update the user's information
     if ($user) {
         $user->f_name = $request->userName;
+        $user->l_name = $request->userLastName;
         $user->email = $request->userEmail;
         $user->phone = $request->userPhone;
         $user->address = $request->userAddress;
@@ -215,6 +219,7 @@ public function userupdate(Request $request)
             // Update session data
             session([
                 'user_name' => $user->f_name,
+                'user_lastname' => $user->l_name,
                 'address' => $user->address,
                 'email' => $user->email,
                 'phone' => $user->phone,
@@ -229,16 +234,26 @@ public function userupdate(Request $request)
     }
 }
 
-public function frontview(){
-     $products = Product::all();
-    $categories = Category::withCount('products')->get(); 
-     $company_info = CompanyInfo::first();
-    return view('shop', compact('categories','company_info','products'));
+
+public function frontview(Request $request)
+{
+    $categories = Category::withCount('products')->get();
+    $productsQuery = Product::query();
+    $company_info = CompanyInfo::first();
+    if($request->query('category')){
+        $productsQuery->where('category_id', $request->query('category'));
+    }
+
+    $products = $productsQuery->get();
+
+    return view('shop', compact('categories','products','company_info'));
 }
+
 public function blogfrontview(){
      $news = News::all();
      $company_info = CompanyInfo::first();
-    return view('blog', compact('news','company_info'));
+     $categories = Category::withCount('products')->get();
+    return view('blog', compact('news','company_info','categories'));
 }
 
 }
